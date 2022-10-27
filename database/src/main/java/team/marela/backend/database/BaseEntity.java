@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @MappedSuperclass
@@ -26,4 +27,8 @@ public class BaseEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Type(type = "uuid-char")
     private UUID id;
+
+    @Builder.Default
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime created = LocalDateTime.now();
 }
