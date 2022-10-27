@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class InvoiceStripeService {
 
-    @Value("{stripe.api-key}")
+    @Value("${stripe.api-key}")
     private String stripeApi;
 
     public Invoice createInvoice() {
