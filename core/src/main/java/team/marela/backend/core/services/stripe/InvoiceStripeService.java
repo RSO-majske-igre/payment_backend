@@ -1,7 +1,6 @@
 package team.marela.backend.core.services.stripe;
 
 import com.stripe.model.Invoice;
-import com.stripe.param.InvoiceCreateParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

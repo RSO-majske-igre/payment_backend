@@ -5,8 +5,6 @@ import lombok.experimental.SuperBuilder;
 import team.marela.backend.database.BaseEntity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity(name = "invoice_status_history")
 @Getter

@@ -5,7 +5,6 @@ import lombok.experimental.SuperBuilder;
 import team.marela.backend.database.BaseEntity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity(name = "address")

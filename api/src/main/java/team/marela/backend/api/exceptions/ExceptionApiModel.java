@@ -2,8 +2,6 @@ package team.marela.backend.api.exceptions;
 
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
-
 @Getter
 @Setter
 @Builder

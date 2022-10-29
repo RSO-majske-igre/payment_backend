@@ -1,10 +1,8 @@
 package team.marela.backend.api.exceptions;
 
-import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -12,7 +10,6 @@ import team.marela.backend.core.exceptions.BadRequestException;
 import team.marela.backend.core.exceptions.DataNotFoundException;
 import team.marela.backend.core.exceptions.ForbiddenException;
 
-@Log
 @RestControllerAdvice
 public class ExceptionApiHandler {
 

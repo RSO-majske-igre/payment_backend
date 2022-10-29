@@ -6,7 +6,6 @@ import team.marela.backend.database.BaseEntity;
 import team.marela.backend.database.entities.invoice.InvoiceEntity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity(name = "customer")
