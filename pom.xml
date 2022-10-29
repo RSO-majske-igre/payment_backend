@@ -11,11 +11,11 @@
 
     <packaging>pom</packaging>
 
-    <groupId>team.marela</groupId>
-    <artifactId>multimodule-project</artifactId>
+    <groupId>si.rso.majskeigre</groupId>
+    <artifactId>payments-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>multimodule-project</name>
-    <description>Station catalog for RSO project</description>
+    <name>payment-server</name>
+    <description>Application server for payments</description>
 
     <modules>
         <module>api</module>
