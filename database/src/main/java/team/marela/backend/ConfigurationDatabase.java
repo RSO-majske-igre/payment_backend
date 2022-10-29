@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackages ={"team.marela.backend.database.repositories"})
+@EnableJpaRepositories(basePackages = {"team.marela.backend.database.repositories"})
 @EntityScan(basePackages = {"team.marela.backend.database.entities"})
 public class ConfigurationDatabase {
 }

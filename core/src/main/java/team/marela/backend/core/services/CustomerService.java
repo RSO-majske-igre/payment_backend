@@ -29,7 +29,7 @@ public class CustomerService {
                 addressService.upsert(customer.getAddress())
         );
 
-        if(customer.getId() == null) {
+        if (customer.getId() == null) {
             customerRepository.findByEmail(customer.getEmail())
                     .ifPresent(c -> customer.setId(c.getId()));
         }

@@ -1,6 +1,6 @@
 package team.marela.backend.core.exceptions;
 
-public class BadRequestException extends RuntimeException{
+public class BadRequestException extends RuntimeException {
     public BadRequestException() {
     }
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import team.marela.backend.core.exceptions.DataNotFoundException;
 import team.marela.backend.core.mappers.DtoMapper;
 import team.marela.backend.core.models.invoice.InvoiceDto;
+import team.marela.backend.core.services.webhooks.WebhookTriggerService;
 import team.marela.backend.database.entities.invoice.InvoiceEntity;
 import team.marela.backend.database.entities.invoice.InvoiceLineEntity;
 import team.marela.backend.database.entities.invoice.InvoiceStatusHistoryEntity;
@@ -29,12 +30,16 @@ public class InvoiceService {
     private final InvoiceStatusHistoryRepository invoiceStatusHistoryRepository;
 
     private final CustomerService customerService;
+    private final WebhookTriggerService webhookTriggerService;
 
     private final DtoMapper<InvoiceEntity, InvoiceDto> invoiceMapper = new DtoMapper<>(InvoiceEntity.class, InvoiceDto.class);
 
-    public InvoiceDto getInvoice(UUID id) {
-        return invoiceMapper.toDto(invoiceRepository.findById(id).orElseThrow(DataNotFoundException::new));
+    public InvoiceDto getInvoiceDto(UUID id) {
+        return invoiceMapper.toDto(getInvoice(id));
+    }
 
+    public InvoiceEntity getInvoice(UUID id) {
+        return invoiceRepository.findById(id).orElseThrow(DataNotFoundException::new);
     }
 
     public Page<InvoiceDto> getInvoices(Integer page, Integer perPage, String sortBy) {
@@ -48,22 +53,23 @@ public class InvoiceService {
 
     public InvoiceEntity upsertInvoice(InvoiceEntity invoice) {
         invoice = invoiceRepository.save(
-            invoice.setCustomer(
-                    customerService.upsertCustomer(invoice.getCustomer())
-            )
-        );
-
-        return invoice.setInvoiceLines(
+                invoice.setCustomer(
+                        customerService.upsertCustomer(invoice.getCustomer())
+                )
+        ).setInvoiceLines(
                 saveInvoiceLines(invoice)
         );
+
+        webhookTriggerService.triggerInvoiceWebhook(invoiceMapper.toDto(invoice));
+        return invoice;
     }
 
     private Set<InvoiceLineEntity> saveInvoiceLines(InvoiceEntity invoice) {
         return new HashSet<>(
                 invoiceLineRepository.saveAll(
-                    invoice.getInvoiceLines().stream()
-                            .map(e -> e.setInvoice(invoice))
-                            .collect(Collectors.toSet())
+                        invoice.getInvoiceLines().stream()
+                                .map(e -> e.setInvoice(invoice))
+                                .collect(Collectors.toSet())
                 )
         );
     }

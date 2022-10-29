@@ -22,7 +22,7 @@ public class InvoiceApi implements InvoiceApiInterface {
 
     @Override
     public InvoiceDto getInvoiceById(UUID id) {
-        return invoiceService.getInvoice(id);
+        return invoiceService.getInvoiceDto(id);
     }
 
     @Override

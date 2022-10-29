@@ -23,7 +23,7 @@ public class AddressService {
     }
 
     public AddressEntity upsert(AddressEntity address) {
-        if(address.getId() == null) {
+        if (address.getId() == null) {
             addressRepository.findByLine1AndLine2AndCityAndPostalCode(
                     address.getLine1(), address.getLine2(), address.getCity(), address.getPostalCode()
             ).ifPresent(addr -> address.setId(addr.getId()));

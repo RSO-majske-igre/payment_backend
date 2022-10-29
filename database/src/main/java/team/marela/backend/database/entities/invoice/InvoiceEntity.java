@@ -17,7 +17,7 @@ import java.util.Set;
 @SuperBuilder
 public class InvoiceEntity extends BaseEntity {
 
-//    @Column(nullable = false, unique = true)
+    //    @Column(nullable = false, unique = true)
     private String stripeInvoiceId;
 
     private Long sumAmount;

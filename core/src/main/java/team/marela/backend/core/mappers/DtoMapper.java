@@ -3,7 +3,7 @@ package team.marela.backend.core.mappers;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 
-public class DtoMapper <Entity, Dto>{
+public class DtoMapper<Entity, Dto> {
 
     private final ModelMapper modelMapper = new ModelMapper();
     private final Class<Entity> entityClassType;

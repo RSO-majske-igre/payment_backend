@@ -12,68 +12,68 @@ metadata:
       fieldsV1:
         'f:metadata':
           'f:labels':
-            .: {}
-            'f:app': {}
+            .: { }
+            'f:app': { }
         'f:spec':
-          'f:progressDeadlineSeconds': {}
-          'f:replicas': {}
-          'f:revisionHistoryLimit': {}
-          'f:selector': {}
+          'f:progressDeadlineSeconds': { }
+          'f:replicas': { }
+          'f:revisionHistoryLimit': { }
+          'f:selector': { }
           'f:strategy':
             'f:rollingUpdate':
-              .: {}
-              'f:maxSurge': {}
-              'f:maxUnavailable': {}
-            'f:type': {}
+              .: { }
+              'f:maxSurge': { }
+              'f:maxUnavailable': { }
+            'f:type': { }
           'f:template':
             'f:metadata':
               'f:labels':
-                .: {}
-                'f:app': {}
+                .: { }
+                'f:app': { }
             'f:spec':
               'f:containers':
                 'k:{"name":"station-catalog-1"}':
-                  .: {}
+                  .: { }
                   'f:env':
-                    .: {}
+                    .: { }
                     'k:{"name":"SPRING_DATASOURCE_PASSWORD"}':
-                      .: {}
-                      'f:name': {}
+                      .: { }
+                      'f:name': { }
                       'f:valueFrom':
-                        .: {}
+                        .: { }
                         'f:configMapKeyRef':
-                          .: {}
-                          'f:key': {}
-                          'f:name': {}
+                          .: { }
+                          'f:key': { }
+                          'f:name': { }
                     'k:{"name":"SPRING_DATASOURCE_URL"}':
-                      .: {}
-                      'f:name': {}
+                      .: { }
+                      'f:name': { }
                       'f:valueFrom':
-                        .: {}
+                        .: { }
                         'f:configMapKeyRef':
-                          .: {}
-                          'f:key': {}
-                          'f:name': {}
+                          .: { }
+                          'f:key': { }
+                          'f:name': { }
                     'k:{"name":"SPRING_DATASOURCE_USERNAME"}':
-                      .: {}
-                      'f:name': {}
+                      .: { }
+                      'f:name': { }
                       'f:valueFrom':
-                        .: {}
+                        .: { }
                         'f:configMapKeyRef':
-                          .: {}
-                          'f:key': {}
-                          'f:name': {}
-                  'f:image': {}
-                  'f:imagePullPolicy': {}
-                  'f:name': {}
-                  'f:resources': {}
-                  'f:terminationMessagePath': {}
-                  'f:terminationMessagePolicy': {}
-              'f:dnsPolicy': {}
-              'f:restartPolicy': {}
-              'f:schedulerName': {}
-              'f:securityContext': {}
-              'f:terminationGracePeriodSeconds': {}
+                          .: { }
+                          'f:key': { }
+                          'f:name': { }
+                  'f:image': { }
+                  'f:imagePullPolicy': { }
+                  'f:name': { }
+                  'f:resources': { }
+                  'f:terminationMessagePath': { }
+                  'f:terminationMessagePolicy': { }
+              'f:dnsPolicy': { }
+              'f:restartPolicy': { }
+              'f:schedulerName': { }
+              'f:securityContext': { }
+              'f:terminationGracePeriodSeconds': { }
       manager: GoogleCloudConsole
       operation: Update
       time: '2021-12-27T18:57:22Z'
@@ -82,31 +82,31 @@ metadata:
       fieldsV1:
         'f:metadata':
           'f:annotations':
-            'f:deployment.kubernetes.io/revision': {}
+            'f:deployment.kubernetes.io/revision': { }
         'f:status':
-          'f:availableReplicas': {}
+          'f:availableReplicas': { }
           'f:conditions':
-            .: {}
+            .: { }
             'k:{"type":"Available"}':
-              .: {}
-              'f:lastTransitionTime': {}
-              'f:lastUpdateTime': {}
-              'f:message': {}
-              'f:reason': {}
-              'f:status': {}
-              'f:type': {}
+              .: { }
+              'f:lastTransitionTime': { }
+              'f:lastUpdateTime': { }
+              'f:message': { }
+              'f:reason': { }
+              'f:status': { }
+              'f:type': { }
             'k:{"type":"Progressing"}':
-              .: {}
-              'f:lastTransitionTime': {}
-              'f:lastUpdateTime': {}
-              'f:message': {}
-              'f:reason': {}
-              'f:status': {}
-              'f:type': {}
-          'f:observedGeneration': {}
-          'f:readyReplicas': {}
-          'f:replicas': {}
-          'f:updatedReplicas': {}
+              .: { }
+              'f:lastTransitionTime': { }
+              'f:lastUpdateTime': { }
+              'f:message': { }
+              'f:reason': { }
+              'f:status': { }
+              'f:type': { }
+          'f:observedGeneration': { }
+          'f:readyReplicas': { }
+          'f:replicas': { }
+          'f:updatedReplicas': { }
       manager: kube-controller-manager
       operation: Update
       time: '2021-12-27T19:00:28Z'
@@ -176,16 +176,16 @@ metadata:
       fieldsV1:
         'f:metadata':
           'f:labels':
-            .: {}
-            'f:app': {}
+            .: { }
+            'f:app': { }
         'f:spec':
-          'f:maxReplicas': {}
-          'f:metrics': {}
-          'f:minReplicas': {}
+          'f:maxReplicas': { }
+          'f:metrics': { }
+          'f:minReplicas': { }
           'f:scaleTargetRef':
-            'f:apiVersion': {}
-            'f:kind': {}
-            'f:name': {}
+            'f:apiVersion': { }
+            'f:kind': { }
+            'f:name': { }
       manager: GoogleCloudConsole
       operation: Update
       time: '2021-12-27T17:18:23Z'
@@ -194,14 +194,14 @@ metadata:
       fieldsV1:
         'f:metadata':
           'f:annotations':
-            .: {}
-            'f:autoscaling.alpha.kubernetes.io/conditions': {}
-            'f:autoscaling.alpha.kubernetes.io/current-metrics': {}
+            .: { }
+            'f:autoscaling.alpha.kubernetes.io/conditions': { }
+            'f:autoscaling.alpha.kubernetes.io/current-metrics': { }
         'f:status':
-          'f:currentCPUUtilizationPercentage': {}
-          'f:currentReplicas': {}
-          'f:desiredReplicas': {}
-          'f:lastScaleTime': {}
+          'f:currentCPUUtilizationPercentage': { }
+          'f:currentReplicas': { }
+          'f:desiredReplicas': { }
+          'f:lastScaleTime': { }
       manager: vpa-recommender
       operation: Update
       time: '2021-12-27T17:23:27Z'
@@ -235,24 +235,24 @@ metadata:
       fieldsType: FieldsV1
       fieldsV1:
         'f:metadata':
-          'f:generateName': {}
+          'f:generateName': { }
           'f:labels':
-            .: {}
-            'f:app': {}
+            .: { }
+            'f:app': { }
         'f:spec':
-          'f:externalTrafficPolicy': {}
+          'f:externalTrafficPolicy': { }
           'f:ports':
-            .: {}
+            .: { }
             'k:{"port":80,"protocol":"TCP"}':
-              .: {}
-              'f:port': {}
-              'f:protocol': {}
-              'f:targetPort': {}
+              .: { }
+              'f:port': { }
+              'f:protocol': { }
+              'f:targetPort': { }
           'f:selector':
-            .: {}
-            'f:app': {}
-          'f:sessionAffinity': {}
-          'f:type': {}
+            .: { }
+            'f:app': { }
+          'f:sessionAffinity': { }
+          'f:type': { }
       manager: GoogleCloudConsole
       operation: Update
       time: '2021-12-27T19:28:30Z'
@@ -261,11 +261,11 @@ metadata:
       fieldsV1:
         'f:metadata':
           'f:finalizers':
-            .: {}
-            'v:"service.kubernetes.io/load-balancer-cleanup"': {}
+            .: { }
+            'v:"service.kubernetes.io/load-balancer-cleanup"': { }
         'f:status':
           'f:loadBalancer':
-            'f:ingress': {}
+            'f:ingress': { }
       manager: kube-controller-manager
       operation: Update
       time: '2021-12-27T19:29:15Z'

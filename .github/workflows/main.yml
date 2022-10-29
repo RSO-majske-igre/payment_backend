@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
-      - name: Check Out Repo 
+
+      - name: Check Out Repo
         uses: actions/checkout@v2
-        
+
       - name: Get Time
         id: time
         uses: nanzm/get-time-action@v1.0

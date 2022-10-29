@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 public class CustomerStripeService {
 
     public Customer createStripeCustomer() {
-    return null;
+        return null;
     }
 }
