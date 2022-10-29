@@ -11,7 +11,6 @@ import java.util.Set;
 @Entity(name = "address")
 @Table(uniqueConstraints = {
         @UniqueConstraint(name = "unique_address", columnNames = {"line1", "line2", "city", "postalCode"}),
-        @UniqueConstraint(name = "unique_city", columnNames = {"city", "postalCode"})
 })
 @Getter
 @Setter

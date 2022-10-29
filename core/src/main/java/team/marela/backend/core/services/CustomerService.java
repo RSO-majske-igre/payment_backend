@@ -14,18 +14,29 @@ import team.marela.backend.database.repositories.customer.CustomerRepository;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final AddressRepository addressRepository;
+    private final AddressService addressService;
 
     private final DtoMapper<CustomerEntity, CustomerDto> customerMapper = new DtoMapper<>(CustomerEntity.class, CustomerDto.class);
 
     public CustomerDto upsertCustomer(CustomerDto dto) {
-        var customer = customerMapper.toEntity(dto);;
-        return customerMapper.toDto(customerRepository.save(
-                customer.withAddress(saveAddress(customer.getAddress()))
-        ));
+        return customerMapper.toDto(
+                upsertCustomer(customerMapper.toEntity(
+                        dto
+                ))
+        );
     }
 
-    private AddressEntity saveAddress(AddressEntity address) {
-        return addressRepository.save(address);
+    public CustomerEntity upsertCustomer(CustomerEntity customer) {
+        customer.setAddress(
+                addressService.upsert(customer.getAddress())
+        );
+
+        if(customer.getId() == null) {
+            customerRepository.findByEmail(customer.getEmail())
+                    .ifPresent(c -> customer.setId(c.getId()));
+        }
+
+        return customerRepository.save(customer);
     }
+
 }
