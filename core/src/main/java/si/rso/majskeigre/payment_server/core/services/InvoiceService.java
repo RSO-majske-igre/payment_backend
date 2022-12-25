@@ -51,6 +51,7 @@ public class InvoiceService {
         return invoiceMapper.toDto(upsertInvoice(invoiceMapper.toEntity(dto)));
     }
 
+    //todo: najprej je potrebno zgraditi customer, potem invoice, narediti poizvedbo na stripe in potem shranit v bazo
     public InvoiceEntity upsertInvoice(InvoiceEntity invoice) {
         invoice = invoiceRepository.save(
                 invoice.setCustomer(
