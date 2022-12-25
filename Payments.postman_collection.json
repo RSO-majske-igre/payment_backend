@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "82860754-5f7c-4847-984c-d83596dfe05f",
+		"name": "Payments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21556720"
+	},
+	"item": [
+		{
+			"name": "Invoice::create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"sumAmount\": 0,\n  \"customer\": {\n    \"name\": \"Jakob Drugi\",\n    \"email\": \"jakob.drugi69@gail.com\",\n    \"phone\": \"000111222\",\n    \"addressLine1\": \"Svetčeva ulica 69\",\n    \"addressCity\": \"Ljubljana\",\n    \"addressPostalCode\": \"3600\"\n  },\n  \"status\": \"CREATED\",\n  \"invoiceLines\": [\n    {\n      \"name\": \"Dolgovi\",\n      \"price\": 10\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://34.168.215.18:8100/invoice",
+					"protocol": "http",
+					"host": [
+						"34",
+						"168",
+						"215",
+						"18"
+					],
+					"port": "8100",
+					"path": [
+						"invoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invoice::getAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://34.168.215.18:8100/invoice",
+					"protocol": "http",
+					"host": [
+						"34",
+						"168",
+						"215",
+						"18"
+					],
+					"port": "8100",
+					"path": [
+						"invoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invoice::getById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://34.168.215.18:8100/invoice/7f2f7ec7-ddc9-45d1-ac30-651cf0fe4622",
+					"protocol": "http",
+					"host": [
+						"34",
+						"168",
+						"215",
+						"18"
+					],
+					"port": "8100",
+					"path": [
+						"invoice",
+						"7f2f7ec7-ddc9-45d1-ac30-651cf0fe4622"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invoice::update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"sumAmount\": 3.75,\n  \"customer\": {\n    \"name\": \"Jakob Marušič\",\n    \"email\": \"jakob.marusic17@gmail.com\",\n    \"phone\": \"031708115\",\n    \"addressLine1\": \"Svetčeva 9\",\n    \"addressCity\": \"Ljubljana\",\n    \"addressPostalCode\": \"1000\"\n  },\n  \"status\": \"CREATED\",\n  \"invoiceLines\": [\n    {\n      \"name\": \"Prijavnina 3\",\n      \"price\": 3\n    },\n    {\n      \"name\": \"Strošek obdelave\",\n      \"price\": 0.75\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "http://34.168.215.18:8100/invoice",
+					"protocol": "http",
+					"host": [
+						"34",
+						"168",
+						"215",
+						"18"
+					],
+					"port": "8100",
+					"path": [
+						"invoice"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
