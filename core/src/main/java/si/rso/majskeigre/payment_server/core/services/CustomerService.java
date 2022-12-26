@@ -41,8 +41,4 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    public CustomerEntity getCustomer(CustomerEntity entity) {
-        return customerRepository.findById(entity.getId()).orElseThrow(DataNotFoundException::new);
-    }
-
 }
