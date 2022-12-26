@@ -1,5 +1,6 @@
 package si.rso.majskeigre.payment_server.api.interfaces;
 
+import com.stripe.exception.StripeException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,7 +27,7 @@ public interface InvoiceApiInterface {
             @RequestBody @Valid
             @Parameter(description = "InvoiceDto to be saved")
             InvoiceDto invoice
-    );
+    ) throws StripeException;
 
     @GetMapping("/{id}")
     @Operation(summary = "Returns invoice with given ID")

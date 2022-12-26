@@ -15,17 +15,9 @@ import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
-public class InvoiceStripeService {
+public class InvoiceStripeService extends StripeBaseService{
 
     private final CustomerStripeService customerStripeService;
-
-    @Value("{stripe.api-key}")
-    private String stripeApi;
-
-    @PostConstruct
-    private void setStripeApi() {
-        Stripe.apiKey = stripeApi;
-    }
 
     public InvoiceEntity createInvoice(InvoiceEntity entity) throws StripeException {
         if(entity.getCustomer().getStripeCustomerId() == null) {
@@ -34,13 +26,11 @@ public class InvoiceStripeService {
             );
         }
 
-        PaymentIntentCreateParams pincp = PaymentIntentCreateParams.builder()
+        var pi = PaymentIntent.create(PaymentIntentCreateParams.builder()
                 .setCustomer(entity.getCustomer().getStripeCustomerId())
                 .setAmount(entity.getSumAmount())
                 .setCurrency("eur")
-                .build();
-
-        var pi = PaymentIntent.create(pincp);
+                .build());
         entity.setStripeInvoiceId(pi.getId());
         return entity;
     }

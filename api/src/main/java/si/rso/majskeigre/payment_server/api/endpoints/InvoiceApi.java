@@ -1,5 +1,6 @@
 package si.rso.majskeigre.payment_server.api.endpoints;
 
+import com.stripe.exception.StripeException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ public class InvoiceApi implements InvoiceApiInterface {
     private final InvoiceService invoiceService;
 
     @Override
-    public InvoiceDto postInvoice(InvoiceDto invoice) {
+    public InvoiceDto postInvoice(InvoiceDto invoice) throws StripeException {
         return invoiceService.upsertInvoice(invoice);
     }
 

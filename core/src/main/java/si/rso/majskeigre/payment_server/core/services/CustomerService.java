@@ -2,6 +2,7 @@ package si.rso.majskeigre.payment_server.core.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import si.rso.majskeigre.payment_server.core.exceptions.DataNotFoundException;
 import si.rso.majskeigre.payment_server.core.mappers.DtoMapper;
 import si.rso.majskeigre.payment_server.core.models.customer.CustomerDto;
 import si.rso.majskeigre.payment_server.database.entities.customer.CustomerEntity;
@@ -32,9 +33,16 @@ public class CustomerService {
         if (customer.getId() == null) {
             customerRepository.findByEmail(customer.getEmail())
                     .ifPresent(c -> customer.setId(c.getId()));
+        } else if(customer.getStripeCustomerId() == null) {
+            customerRepository.findById(customer.getId())
+                    .ifPresentOrElse(e -> customer.setStripeCustomerId(e.getStripeCustomerId()), DataNotFoundException::new);
         }
 
         return customerRepository.save(customer);
+    }
+
+    public CustomerEntity getCustomer(CustomerEntity entity) {
+        return customerRepository.findById(entity.getId()).orElseThrow(DataNotFoundException::new);
     }
 
 }
