@@ -2,11 +2,13 @@ package si.rso.majskeigre.payment_server.database.entities.customer;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Type;
 import si.rso.majskeigre.payment_server.database.BaseEntity;
 import si.rso.majskeigre.payment_server.database.entities.invoice.InvoiceEntity;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "customer")
 @Getter
@@ -16,22 +18,10 @@ import java.util.Set;
 @AllArgsConstructor
 @SuperBuilder
 public class CustomerEntity extends BaseEntity {
+    @Column(unique = true, nullable = false)
+    @Type(type = "uuid-char")
+    private UUID participantId;
+
     @Column(unique = true)
     private String stripeCustomerId;
-
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String phone;
-
-    @ManyToOne
-    @JoinColumn(name = "address_id")
-    private AddressEntity address;
-
-    @OneToMany(mappedBy = "customer")
-    private Set<InvoiceEntity> invoices;
 }

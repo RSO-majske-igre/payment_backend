@@ -8,6 +8,7 @@ import com.stripe.param.CustomerCreateParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import si.rso.majskeigre.payment_server.core.external.models.ParticipantDto;
 import si.rso.majskeigre.payment_server.database.entities.customer.CustomerEntity;
 
 import javax.annotation.PostConstruct;
@@ -16,21 +17,19 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class CustomerStripeService extends StripeBaseService{
 
-    public CustomerEntity createStripeCustomer(CustomerEntity entity) throws StripeException {
-        var addressEntity = entity.getAddress();
-
+    public CustomerEntity createStripeCustomer(CustomerEntity customer, ParticipantDto participant) throws StripeException {
         var stripeCustomer =  Customer.create(new CustomerCreateParams.Builder()
-                .setName(entity.getName())
-                .setEmail(entity.getEmail())
-                .setPhone(entity.getPhone())
+                .setName(participant.getName())
+                .setEmail(participant.getEmail())
+                .setPhone(participant.getPhone())
                 .setAddress(CustomerCreateParams.Address.builder()
-                        .setCity(addressEntity.getCity())
+                        .setCity(participant.getAddressCity())
                         .setCountry("sl")
-                        .setLine1(addressEntity.getLine1())
-                        .setLine2(addressEntity.getLine2())
-                        .setPostalCode(addressEntity.getPostalCode())
+                        .setLine1(participant.getAddressLine1())
+                        .setLine2(participant.getAddressLine2())
+                        .setPostalCode(participant.getAddressPostalCode())
                         .build())
                 .build());
-        return entity.setStripeCustomerId(stripeCustomer.getId());
+        return customer.setStripeCustomerId(stripeCustomer.getId());
     }
 }

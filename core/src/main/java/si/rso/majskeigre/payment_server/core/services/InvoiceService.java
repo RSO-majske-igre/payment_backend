@@ -7,10 +7,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import si.rso.majskeigre.payment_server.core.exceptions.DataNotFoundException;
+import si.rso.majskeigre.payment_server.core.external.services.ParticipantsExternalServices;
 import si.rso.majskeigre.payment_server.core.mappers.DtoMapper;
 import si.rso.majskeigre.payment_server.core.models.invoice.InvoiceDto;
+import si.rso.majskeigre.payment_server.core.services.stripe.CustomerStripeService;
 import si.rso.majskeigre.payment_server.core.services.stripe.InvoiceStripeService;
 import si.rso.majskeigre.payment_server.core.services.webhooks.WebhookTriggerService;
+import si.rso.majskeigre.payment_server.database.entities.customer.CustomerEntity;
 import si.rso.majskeigre.payment_server.database.entities.invoice.InvoiceEntity;
 import si.rso.majskeigre.payment_server.database.entities.invoice.InvoiceLineEntity;
 import si.rso.majskeigre.payment_server.database.entities.invoice.InvoiceStatusHistoryEntity;
@@ -36,6 +39,8 @@ public class InvoiceService {
     private final CustomerService customerService;
     private final WebhookTriggerService webhookTriggerService;
     private final InvoiceStripeService invoiceStripeService;
+    private final CustomerStripeService customerStripeService;
+    private final ParticipantsExternalServices participantsExternalServices;
 
     private final DtoMapper<InvoiceEntity, InvoiceDto> invoiceMapper = new DtoMapper<>(InvoiceEntity.class, InvoiceDto.class);
 
@@ -51,32 +56,61 @@ public class InvoiceService {
         return invoiceRepository.findAll(PageRequest.of(page, perPage, Sort.by(sortBy))).map(invoiceMapper::toDto);
     }
 
-    //todo: invoice status
     public InvoiceDto upsertInvoice(InvoiceDto dto) throws StripeException {
-        return invoiceMapper.toDto(upsertInvoice(invoiceMapper.toEntity(dto)));
-    }
+        var participant = participantsExternalServices.getParticipant(dto.getParticipantId());
 
-    /* todo:
-        najprej je potrebno zgraditi customer,
-        potem invoice,
-        narediti poizvedbo na stripe
-        in potem shranit v bazo
-     */
-    public InvoiceEntity upsertInvoice(InvoiceEntity invoice) throws StripeException {
-        var customer =  customerRepository.findByEmail(invoice.getCustomer().getEmail())
-                        .orElseGet(invoice::getCustomer);
-        invoice.setCustomer(customer);
+        CustomerEntity customer = customerRepository.findByParticipantId(dto.getParticipantId()).orElseGet(CustomerEntity::new);
+        if (customer.getId() == null || customer.getStripeCustomerId() == null) {
+            customer = customerRepository.save(
+                    customerStripeService.createStripeCustomer(
+                            CustomerEntity.builder().participantId(participant.getId()).build(), participant
+                    ));
+        }
 
-        invoice = invoiceStripeService.createInvoice(invoice)
-            .setCustomer(customerService.upsertCustomer(invoice.getCustomer()));
-
-        invoice = invoiceRepository.save(invoice).setInvoiceLines(
-                saveInvoiceLines(invoice)
+        var invoice = invoiceRepository.save(
+                invoiceStripeService.createInvoice(invoiceMapper.toEntity(dto), customer)
+                        .setCustomer(
+                                customerRepository.save(
+                                        customerService.upsertCustomer(customer)
+                                )
+                        )
         );
 
+        invoice.setInvoiceLines(saveInvoiceLines(invoice));
+
         webhookTriggerService.triggerInvoiceWebhook(invoiceMapper.toDto(invoice));
-        return invoice;
+        return invoiceMapper.toDto(invoice);
     }
+
+//    //todo: invoice status
+//    public InvoiceDto upsertInvoice(InvoiceDto dto) throws StripeException {
+//        var invoice = invoiceMapper.toEntity(dto).setC;
+//
+//
+//        invoiceMapper.toDto(upsertInvoice(invoiceMapper.toEntity(dto)));
+//    }
+//
+//    /* todo:
+//        najprej je potrebno zgraditi customer,
+//        potem invoice,
+//        narediti poizvedbo na stripe
+//        in potem shranit v bazo
+//     */
+//    public InvoiceEntity upsertInvoice(InvoiceEntity invoice) throws StripeException {
+//        var customer = customerRepository.findByEmail(invoice.getCustomer().getEmail())
+//                .orElseGet(invoice::getCustomer);
+//        invoice.setCustomer(customer);
+//
+//        invoice = invoiceStripeService.createInvoice(invoice)
+//                .setCustomer(customerService.upsertCustomer(invoice.getCustomer()));
+//
+//        invoice = invoiceRepository.save(invoice).setInvoiceLines(
+//                saveInvoiceLines(invoice)
+//        );
+//
+//        webhookTriggerService.triggerInvoiceWebhook(invoiceMapper.toDto(invoice));
+//        return invoice;
+//    }
 
     private Set<InvoiceLineEntity> saveInvoiceLines(InvoiceEntity invoice) {
         return new HashSet<>(

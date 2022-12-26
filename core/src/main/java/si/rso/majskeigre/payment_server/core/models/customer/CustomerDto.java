@@ -13,13 +13,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CustomerDto {
     private UUID id;
-    private String name;
-    private String email;
-    private String phone;
-
-    private UUID addressId;
-    private String addressLine1;
-    private String addressLine2;
-    private String addressCity;
-    private String addressPostalCode;
+    private UUID participantId;
+    private String stripeCustomerId;
 }

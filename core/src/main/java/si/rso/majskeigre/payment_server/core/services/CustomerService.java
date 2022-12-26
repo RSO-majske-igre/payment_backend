@@ -8,37 +8,26 @@ import si.rso.majskeigre.payment_server.core.models.customer.CustomerDto;
 import si.rso.majskeigre.payment_server.database.entities.customer.CustomerEntity;
 import si.rso.majskeigre.payment_server.database.repositories.customer.CustomerRepository;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
-    private final AddressService addressService;
-
     private final DtoMapper<CustomerEntity, CustomerDto> customerMapper = new DtoMapper<>(CustomerEntity.class, CustomerDto.class);
 
-    public CustomerDto upsertCustomer(CustomerDto dto) {
-        return customerMapper.toDto(
-                upsertCustomer(customerMapper.toEntity(
-                        dto
-                ))
-        );
-    }
 
     public CustomerEntity upsertCustomer(CustomerEntity customer) {
-        customer.setAddress(
-                addressService.upsert(customer.getAddress())
-        );
-
-        if (customer.getId() == null) {
-            customerRepository.findByEmail(customer.getEmail())
-                    .ifPresent(c -> customer.setId(c.getId()));
-        } else if(customer.getStripeCustomerId() == null) {
-            customerRepository.findById(customer.getId())
-                    .ifPresentOrElse(e -> customer.setStripeCustomerId(e.getStripeCustomerId()), DataNotFoundException::new);
-        }
-
         return customerRepository.save(customer);
+    }
+
+    public CustomerEntity getCustomer(UUID id) {
+        return customerRepository.findById(id).orElseThrow(DataNotFoundException::new);
+    }
+
+    public CustomerEntity getCustomerByParticipantId(UUID id) {
+        return customerRepository.findByParticipantId(id).orElseThrow(DataNotFoundException::new);
     }
 
 }

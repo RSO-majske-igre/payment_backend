@@ -24,7 +24,7 @@ public class InvoiceDto {
     private Long sumAmount;
 
     @NotNull(message = "Customer should not be null")
-    private CustomerDto customer;
+    private UUID participantId;
 
     @NotNull(message = "Status should not be null")
     private InvoiceStatusEnum status;
