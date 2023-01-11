@@ -82,36 +82,6 @@ public class InvoiceService {
         return invoiceMapper.toDto(invoice);
     }
 
-//    //todo: invoice status
-//    public InvoiceDto upsertInvoice(InvoiceDto dto) throws StripeException {
-//        var invoice = invoiceMapper.toEntity(dto).setC;
-//
-//
-//        invoiceMapper.toDto(upsertInvoice(invoiceMapper.toEntity(dto)));
-//    }
-//
-//    /* todo:
-//        najprej je potrebno zgraditi customer,
-//        potem invoice,
-//        narediti poizvedbo na stripe
-//        in potem shranit v bazo
-//     */
-//    public InvoiceEntity upsertInvoice(InvoiceEntity invoice) throws StripeException {
-//        var customer = customerRepository.findByEmail(invoice.getCustomer().getEmail())
-//                .orElseGet(invoice::getCustomer);
-//        invoice.setCustomer(customer);
-//
-//        invoice = invoiceStripeService.createInvoice(invoice)
-//                .setCustomer(customerService.upsertCustomer(invoice.getCustomer()));
-//
-//        invoice = invoiceRepository.save(invoice).setInvoiceLines(
-//                saveInvoiceLines(invoice)
-//        );
-//
-//        webhookTriggerService.triggerInvoiceWebhook(invoiceMapper.toDto(invoice));
-//        return invoice;
-//    }
-
     private Set<InvoiceLineEntity> saveInvoiceLines(InvoiceEntity invoice) {
         return new HashSet<>(
                 invoiceLineRepository.saveAll(
